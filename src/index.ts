@@ -1,4 +1,4 @@
-import express from "express";
+import express, { type Request, type Response } from "express";
 
 const app = express();
 const PORT = 3000;
@@ -174,6 +174,7 @@ app.delete('/api/estudiantes/:id', (req: Request, res: Response) => {
   });
 });
 
+
 import estudiantesRouter from './routes/estudiantes';
 
 app.use('/api/estudiantes', estudiantesRouter);
@@ -181,4 +182,6 @@ app.use('/api/estudiantes', estudiantesRouter);
 //* tengo dudas de esta ultima parte, la IA me ayudo a corregir errores pero aun creo que 
 // no esta bien del todo... seguire practicando//*
 //* 28/10/2026 actualice lo que pude hay varios errores y me parece que algunos
-//no estan del todo bien.
+//no estan 
+//* tengo dudas de esta ultima parte, la IA me ayudo a corregir errores pero aun creo que 
+// no esta bien del todo... s
