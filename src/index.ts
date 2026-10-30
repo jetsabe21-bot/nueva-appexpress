@@ -1,5 +1,10 @@
 import express, { type Request, type Response } from "express";
-import estudiantesRouter from './ROUTES/estudiantes';
+import estudiantesRouter from './ROUTES/estudiantes.ts';
+import swaggerUi from "swagger-ui-express";
+import fs from "fs";
+import path from "path";
+import { isUtf8 } from "buffer";
+
 
 const app = express();
 const PORT = 3000;
@@ -12,7 +17,11 @@ app.get("/api/servidor-en-linea", (req, res)=> {
     });
 });
 app.use('/api/estudiantes', estudiantesRouter);
-
+const swaggerDocument= JSON.parse(fs.readFileSync(path.join(import.meta.dirname, "./swagger-output.json"),
+"utf-8",
+),
+); 
+app.use("/api.docs",swaggerUi.serve,swaggerUi.setup(swaggerDocument))
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
