@@ -77,6 +77,8 @@ let estudiantes: Estudiante[] = [
 
 router.get('/', function(req: Request, res: Response) {
   const bootcampQuery = req.query.bootcamp as string;
+// #swagger.description = 'Obtiene la lista de estudiantes en el bootcamp'
+
 
   
   if (bootcampQuery) {
@@ -97,6 +99,9 @@ router.get('/', function(req: Request, res: Response) {
 router.get('/:id', (req: Request, res: Response) => {
   const idBuscar = Number(req.params.id);
   const estudianteEncontrado = estudiantes.find(e => e.id === idBuscar);
+  // #swagger.description = 'Obtiene un id de un estudiante'
+
+
   if (!estudianteEncontrado) {
     return res.status(404).json({
       error: "Not Found",
@@ -108,6 +113,7 @@ router.get('/:id', (req: Request, res: Response) => {
 
 router.post('/', function(req: Request, res: Response) {
   const { nombre, email, bootcamp } = req.body;
+   // #swagger.description = 'Crea  un estudiante'
   if (!email) {
     return res.status(400).json({ 
       error: "Bad Request", 
@@ -115,13 +121,14 @@ router.post('/', function(req: Request, res: Response) {
     });
   } 
   
-  const nuevoId = estudiantes.length > 0 ? estudiantes[estudiantes.length - 1].id + 1 : 1;
+  const nuevoId = estudiantes.length > 0 ? estudiantes[estudiantes.length - 1].id + 1: 1;
   const nuevoEstudiante: Estudiante = {
     id: nuevoId,
     nombre,
     email,
     bootcamp
   };
+   
 
   estudiantes.push(nuevoEstudiante); 
   res.status(201).json(nuevoEstudiante);
@@ -132,7 +139,7 @@ router.put('/:id', (req: Request, res: Response) => {
   const { nombre, email, bootcamp } = req.body;
   
   const indice = estudiantes.findIndex(e => e.id === idEstudiante);
-  
+  // #swagger.description = 'Actualiza un estudiante'
   if (indice === -1) {
     return res.status(404).json({ 
       error: "Not Found", 
@@ -151,7 +158,7 @@ router.put('/:id', (req: Request, res: Response) => {
 router.delete('/:id', (req: Request, res: Response) => {
   const idEliminar = Number(req.params.id); 
   const existe = estudiantes.some(e => e.id === idEliminar);
-  
+  // #swagger.description = 'Borra un estudiante'
   if (!existe) {
     return res.status(404).json({ 
       error: "Not Found", 
